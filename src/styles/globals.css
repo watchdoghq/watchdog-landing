@@ -7,3 +7,7 @@
     text-wrap: balance;
   }
 }
+.select {
+  -webkit-appearance: none;
+  appearance: none;
+}

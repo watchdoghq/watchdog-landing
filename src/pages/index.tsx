@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { IconLogo } from "@/components/IconLogo";
 import { IconBinoculars } from "@/components/IconBinoculars";
 import { IconClipboard } from "@/components/IconClipboard";
@@ -9,43 +8,71 @@ import { IconLoader } from "@/components/IconLoader";
 
 export default function Home() {
   const [email, setEmail] = useState("");
-  const [stack, setStack] = useState("CA");
+  const [stack, setStack] = useState("Csharp");
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
+  const [showErrorToast, setShowErrorToast] = useState(false);
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
 
+  const showToast = (error?: boolean) => {
+    error ? setShowErrorToast(true) : setShowSuccessToast(true);
+    setTimeout(() => {
+      error ? setShowErrorToast(false) : setShowSuccessToast(false);
+    }, 5 * 1000);
+  };
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/app/api/user", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ keyword: "menaiala" }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
+    setIsSubmitLoading(true);
+    fetch(
+      `https://docs.google.com/forms/d/e/1FAIpQLSeK1chOi4Z08CF90csc0GUcWIxn0bBLDRtGCKF_9mtAzhyOaA/formResponse?&submit=Submit?usp=pp_url&entry.931842021=${stack}&entry.740404151=${email}`,
+      {
+        method: "POST",
+      }
+    )
+      .then(() => {
+        showToast();
+        setIsSubmitLoading(false);
+        setEmail("");
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        showToast(true);
+        setIsSubmitLoading(false);
+        setEmail("");
       });
-    console.log(email, stack);
   };
 
   return (
     <main className="max-w-7xl mx-auto">
+      {showSuccessToast && (
+        <div
+          id="toast-success"
+          className=" transition-all ease-in-out flex z-50 fixed left-1 top-1 items-center w-full max-w-xs p-4 mb-4 text-white bg-green-500 rounded-lg shadow "
+          role="alert"
+        >
+          <div className="ms-3 text-sm font-normal">
+            Your entry has been submitted.
+          </div>
+        </div>
+      )}
+      {showErrorToast && (
+        <div
+          id="toast-error"
+          className="transition-all ease-out flex fixed z-50 left-1 top-1 items-center w-full max-w-xs p-4 mb-4 text-white bg-red-500 rounded-lg shadow "
+          role="alert"
+        >
+          <div className="ms-3 text-sm font-normal">An error has occured.</div>
+        </div>
+      )}
       <div className="relative py-10 px-4 md:px-20  bg-[url('/gridbg.png')] bg-cover">
         <IconLogo size={50} className="mx-auto mb-16 lg:mb-0 lg:mx-0" />
         <svg
-          // width={width}
-          // height={size}
           viewBox="0 0 1200 701"
           fill="none"
           className=" p-4 hidden lg:block text-[#222]"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M1200 24C1200 10.7452 1189.25 0 1176 0H668C654.745 0 644 10.7452 644 24V315C644 328.255 633.255 339 620 339H24C10.7452 339 0 349.745 0 363V677C0 690.255 10.7451 701 24 701H769C782.255 701 793 690.255 793 677V436C793 422.745 803.745 412 817 412H1176C1189.25 412 1200 401.255 1200 388V24Z"
             fill="currentColor"
           />
@@ -100,8 +127,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="bg-[#222] -mb-1 lg:w-[34vw]  xl:w-[450px] py-14 px-10 lg:px-2 lg:py-9 text-white rounded-3xl lg:absolute top-32 right-[120px] ">
-            <h2 className="text-3xl mb-4">What are we building ? 🤔 </h2>
+          <div className="bg-[#222] -mb-1 lg:w-[34vw]  xl:w-[450px] py-14 px-10 lg:px-5 lg:py-9 text-white rounded-3xl lg:absolute top-32 right-[120px] ">
+            <h2 className="text-[24px] md:text-[28px] mb-4 ">
+              What are we building ? 🤔{" "}
+            </h2>
             <p className="text-xl font-light">
               Watchdog provides real time cloud based monitoring, logging,
               security and alert solutions for software applications
@@ -109,39 +138,51 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <div className="bg-[#222] lg:w-[44vw] xl:w-[650px] py-14 px-10 lg:py-0 lg:px-1 text-white rounded-3xl lg:absolute lg:top-[37vw] xl:top-[470px] left-[120px]">
-            <h2 className="text-3xl mb-4">Join The Waitlist </h2>
-            <p className="text-xl font-light mb-10">
-              We are cooking!! 😉 👨‍🍳 #BeThere 🫵🏽
-            </p>
+          <div className="bg-[#222] lg:w-[44vw] xl:w-[650px] py-14 px-10 lg:py-0 lg:px-5 text-white rounded-3xl lg:absolute lg:top-[36vw] xl:top-[470px] left-[120px]">
+            <h2 className="text-[24px] md:text-[28px] mb-3 ">
+              Join The Waitlist{" "}
+            </h2>
+            <p className="text-xl font-light mb-1">We are cooking!! 😉 👨‍🍳</p>
+            <p className="text-xl font-light mb-7">#BeThere 🫵🏽</p>
             <form className="flex flex-col lg:flex-row" onSubmit={handleSubmit}>
               <label htmlFor="countries" className="hidden">
                 Select an option
               </label>
-              <select
-                value={stack}
-                onChange={(e) => setStack(e.target.value)}
-                required
-                id="countries"
-                className="bg-[#E2F0FD] cursor-pointer px-5 lg:w-[20vw] xl:w-56  border-[10px] border-white rounded-full text-[#1183ED] text-base !outline-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-              >
-                <option value="US">C# (ASP.NET)</option>
-                <option value="CA">Dart (Flutter)</option>
-                <option value="FR">Go</option>
-                <option value="DE">Java (Springboot)</option>
-                <option value="DE">Java/Kotlin (Android)</option>
-                <option value="DE">JavaScript/Typescript (Web)</option>
-                <option value="DE">JavaScript/Typescript (ReactNative)</option>
-                <option value="DE">Python (Django)</option>
-                <option value="DE">Python (Flask)</option>
-                <option value="DE">PHP (Laravel)</option>
-                <option value="DE">PHP (Symfony)</option>
-                <option value="DE">Swift</option>
-                <option value="DE">Others</option>
-              </select>
+              <div className="relative lg:w-[18vw] xl:w-56">
+                <select
+                  value={stack}
+                  onChange={(e) => setStack(e.target.value)}
+                  required
+                  id="countries"
+                  className="select bg-[#E2F0FD] py-2 cursor-pointer px-5 w-full  border-[10px] border-white rounded-full text-[#1183ED] text-base !outline-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                >
+                  <option value="Csharp">C# (ASP.NET)</option>
+                  <option value="Dart (Flutter)">Dart (Flutter)</option>
+                  <option value="Go">Go</option>
+                  <option value="Java (Springboot)">Java (Springboot)</option>
+                  <option value="Java/Kotlin (Android)">
+                    Java/Kotlin (Android)
+                  </option>
+                  <option value="JavaScript/Typescript (Web)">
+                    JavaScript/Typescript (Web)
+                  </option>
+                  <option value="JavaScript/Typescript (ReactNative)">
+                    JavaScript/Typescript (ReactNative)
+                  </option>
+                  <option value="Python (Django)">Python (Django)</option>
+                  <option value="Python (Flask)">Python (Flask)</option>
+                  <option value="PHP (Laravel)">PHP (Laravel)</option>
+                  <option value="PHP (Symfony)">PHP (Symfony)</option>
+                  <option value="Swift">Swift</option>
+                  <option value="Others">Others</option>
+                </select>
+                <span className="text-[#1183ED] text-xl z-30 top-[14px] absolute right-7">
+                  &or;
+                </span>
+              </div>
               <input
                 required
-                className="mx-0 py-2 -my-1 lg:my-0 lg:-mx-2 bg-[#E2F0FD] placeholder:text-[#1183ED] px-5 lg:w-[20vw] xl:w-56  border-[10px] border-white rounded-full text-[#1183ED] text-base !outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="mx-0 py-2 -my-1 lg:my-0 lg:-mx-2 bg-[#E2F0FD] placeholder:text-[#1183ED] px-5 lg:w-[18vw] xl:w-56  border-[10px] border-white rounded-full text-[#1183ED] text-base !outline-none focus:ring-blue-500 focus:border-blue-500"
                 type="text"
                 name="email"
                 id="email"
@@ -151,7 +192,7 @@ export default function Home() {
               />
               <button
                 type="submit"
-                className=" hover:border-[#1183ED] flex items-center gap-2 bg-[#1183ED] px-5 lg:w-[20vw] xl:w-56 border-[10px] border-white rounded-full text-white text-base !outline-none p-2.5"
+                className=" hover:border-[#1183ED] justify-center flex items-center gap-2 bg-[#1183ED] px-5 lg:w-[20vw] xl:w-56 border-[10px] border-white rounded-full text-white text-base !outline-none p-2.5"
               >
                 Submit
                 {isSubmitLoading && (
@@ -161,20 +202,26 @@ export default function Home() {
             </form>
           </div>
           <div className="px-5 py-10 relative lg:absolute lg:top-[37vw] xl:top-[470px] lg:left-[64vw] xl:left-[850px]">
-            <IconArrowUpRight
-              size={100}
-              className="absolute right-14 top-6 lg:-right-10 text-[#CFE6FB]"
-            />
-            <p className="text-[#444] text-xl font-extrabold lg:text-2xl mb-2">
+            <a
+              href="https://www.nuget.org/packages/WatchDog.NET"
+              target="_blank"
+              rel="noopener"
+            >
+              <IconArrowUpRight
+                size={110}
+                className="absolute transition-all ease-in-out right-10 top-6 lg:-right-10 hover:text-[#1183ED] cursor-pointer text-[#CFE6FB]"
+              />
+            </a>
+            <p className="text-[#444] text-2xl font-extrabold lg:text-2xl mb-2">
               We are
             </p>
-            <h2 className="text-[#1183ED] text-3xl lg:text-[3vw] 2xl:text-5xl font-black">
+            <h2 className="text-[#1183ED] text-4xl lg:text-[3vw] 2xl:text-5xl font-black">
               100k+
             </h2>
-            <h2 className="text-[#1183ED] text-3xl lg:text-[3vw] 2xl:text-5xl font-black">
+            <h2 className="text-[#1183ED] text-4xl lg:text-[3vw] 2xl:text-5xl font-black">
               Downloads
             </h2>
-            <p className="text-[#444] text-xl font-extrabold lg:text-2xl mt-2">
+            <p className="text-[#444] text-2xl font-extrabold lg:text-2xl mt-2">
               Strong 💪🏽
             </p>
           </div>
