@@ -87,7 +87,7 @@ export default function Home() {
           </svg>
           <div>
             <div className="mb-8 lg:mb-0 lg:w-[34vw] xl:w-[450px] lg:absolute top-32 left-[95px] flex flex-col gap-4 justify-center lg:pt-9">
-              <div className="border border-[#1183ED] rounded-full py-2 pl-5 md:pl-7 pr-5 gap-5 md:gap-7 w-min bg-[#E2F0FD] flex items-center">
+              <div className="cursor-pointer hover:scale-105 transition-all ease-in-out border border-[#1183ED] rounded-full py-2 pl-5 md:pl-7 pr-5 gap-5 md:gap-7 w-min bg-[#E2F0FD] flex items-center">
                 <h3 className="text-[#1183ED] font-black text-xl md:text-2xl lg:text-[2.8vw] 2xl:text-5xl">
                   Monitor
                 </h3>
@@ -103,7 +103,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex gap-3">
-                <div className="border border-[#1183ED] rounded-full py-2 pl-5 md:pl-7 pr-5 gap-5 md:gap-7 w-min bg-[#E2F0FD] flex items-center">
+                <div className="cursor-pointer hover:scale-105 transition-all ease-in-out border border-[#1183ED] rounded-full py-2 pl-5 md:pl-7 pr-5 gap-5 md:gap-7 w-min bg-[#E2F0FD] flex items-center">
                   <h3 className="text-[#1183ED] font-black text-xl md:text-2xl lg:text-[2.8vw] 2xl:text-5xl">
                     Log
                   </h3>
@@ -118,7 +118,7 @@ export default function Home() {
                     />
                   </div>
                 </div>
-                <div className="border border-[#1183ED] rounded-full py-2 pl-5 md:pl-7 pr-5 gap-5 md:gap-7 w-min bg-[#E2F0FD] flex items-center">
+                <div className="cursor-pointer hover:scale-105 transition-all ease-in-out border border-[#1183ED] rounded-full py-2 pl-5 md:pl-7 pr-5 gap-5 md:gap-7 w-min bg-[#E2F0FD] flex items-center">
                   <h3 className="text-[#1183ED] font-black text-xl md:text-2xl lg:text-[2.8vw] 2xl:text-5xl">
                     Alert
                   </h3>
@@ -233,7 +233,10 @@ export default function Home() {
                 Downloads
               </h2>
               <p className="text-[#444] text-2xl font-extrabold lg:text-2xl mt-2">
-                Strong 💪🏽
+                Strong 💪🏽 on our
+              </p>
+              <p className="text-[#444] text-2xl font-extrabold lg:text-2xl">
+                open-source variant
               </p>
             </div>
           </div>
