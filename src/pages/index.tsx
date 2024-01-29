@@ -33,16 +33,17 @@ export default function Home() {
         setIsSubmitLoading(false);
         setEmail("");
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err)
         showToast(true);
         setIsSubmitLoading(false);
         setEmail("");
-      });
+      })
   };
 
   return (
     <>
-    <Head>
+      <Head>
         <title>Watchdog waitlist</title>
         <meta charSet="utf-8" />
       </Head>
