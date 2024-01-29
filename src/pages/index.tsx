@@ -26,6 +26,7 @@ export default function Home() {
       `https://docs.google.com/forms/d/e/1FAIpQLSeK1chOi4Z08CF90csc0GUcWIxn0bBLDRtGCKF_9mtAzhyOaA/formResponse?&submit=Submit?usp=pp_url&entry.931842021=${stack}&entry.740404151=${email}`,
       {
         method: "POST",
+        mode: "no-cors",
       }
     )
       .then(() => {
@@ -34,11 +35,10 @@ export default function Home() {
         setEmail("");
       })
       .catch((err) => {
-        console.log(err)
         showToast(true);
         setIsSubmitLoading(false);
         setEmail("");
-      })
+      });
   };
 
   return (
