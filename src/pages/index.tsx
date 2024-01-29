@@ -164,7 +164,7 @@ export default function Home() {
                     onChange={(e) => setStack(e.target.value)}
                     required
                     id="countries"
-                    className="select bg-[#E2F0FD] py-2 cursor-pointer px-5 w-full  border-[10px] border-white rounded-full text-[#1183ED] text-base !outline-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                    className="select bg-[#E2F0FD] py-2 cursor-pointer px-5 w-full lg:w-[18vw] xl:w-56  border-[10px] border-white rounded-full text-[#1183ED] text-base !outline-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                   >
                     <option value="Csharp">C# (ASP.NET)</option>
                     <option value="Dart (Flutter)">Dart (Flutter)</option>
